@@ -121,7 +121,6 @@
 %    \begin{macrocode}
 \RequirePackage{refcount}[2006/02/12]
 \RequirePackage{gettitlestring}[2009/12/18]
-\RequirePackage{ltxcmds}[2009/12/12]
 %    \end{macrocode}
 %
 % We redefine |\label| so that it also writes the name of the
@@ -131,7 +130,7 @@
 % used for cross-ref name, and file).
 %    \begin{macro}{\NR@strip@period}
 %    \begin{macrocode}
-\def\NR@strip@period#1.\ltx@empty#2\@nil{#1}
+\def\NR@strip@period#1.\@empty#2\@nil{#1}
 %    \end{macrocode}
 %    \end{macro}
 %
@@ -149,7 +148,7 @@
   \@onelevel@sanitize\@currentlabelname
   \edef\@currentlabelname{%
     \expandafter\NR@strip@period\@currentlabelname
-    \ltx@empty.\ltx@empty\@nil
+    \@empty.\@empty\@nil
   }%
 }
 %    \end{macrocode}
@@ -177,7 +176,7 @@
 %    \begin{macro}{\label@hook}
 %    \begin{macrocode}
 \providecommand*{\label@hook}{}
-\ltx@GlobalAppendToMacro{\label@hook}{%
+\@GlobalAppendToMacro{\label@hook}{%
   \NR@sanitize@labelname
 }
 %    \end{macrocode}
@@ -328,9 +327,9 @@
 % Support for class memoir.
 %
 %    \begin{macrocode}
-\ltx@IfUndefined{ifheadnameref}{%
+\@ifundefined{ifheadnameref}{%
 }{%
-  \ltx@IfUndefined{M@sect}{%
+  \@ifundefined{M@sect}{%
   }{%
     \let\NRorg@M@sect\M@sect
     \def\M@sect#1#2#3#4#5#6[#7][#8]{%
@@ -365,17 +364,17 @@
   \NR@chapter[{#1}]{#2}%
 }
 \@ifclassloaded{memoir}{%
-  \ltx@IfUndefined{ifheadnameref}{%
+  \@ifundefined{ifheadnameref}{%
   }{%
     \def\@chapter[#1]#2{%
-      \ltx@IfUndefined{ch@pt@c}{%
+      \@ifundefined{ch@pt@c}{%
         \NR@gettitle{#1}%
       }{%
-        \ifx\ch@pt@c\ltx@empty
+        \ifx\ch@pt@c\@empty
           \NR@gettitle{#2}%
         \else
           \def\NR@temp{#1}%
-          \ifx\NR@temp\ltx@empty
+          \ifx\NR@temp\@empty
             \expandafter\NR@gettitle\expandafter{\ch@pt@c}%
           \else
             \ifheadnameref
@@ -429,7 +428,7 @@
 %
 % Environment `description'.
 %    \begin{macrocode}
-  \ltx@IfUndefined{descriptionlabel}{%
+  \@ifundefined{descriptionlabel}{%
   }{%
     \let\NRorg@descriptionlabel\descriptionlabel
     \def\descriptionlabel#1{%
@@ -496,7 +495,7 @@
 % \subsubsection{Theorems}
 %
 %    \begin{macrocode}
-\ltx@IfUndefined{@opargbegintheorem}{}{%
+\@ifundefined{@opargbegintheorem}{}{%
   \let\NRorg@opargbegintheorem\@opargbegintheorem
   \def\@opargbegintheorem#1#2#3{%
     \NR@gettitle{#3}%
@@ -690,10 +689,10 @@
 %    \end{macro}
 %    \begin{macrocode}
 %\@ifclassloaded{memoir}{%
-%  \ltx@IfUndefined{@mem@titlerefnolink}\ltx@secondoftwo{%
-%    \ltx@IfUndefined{@mem@titleref}\ltx@secondoftwo\ltx@firstoftwo
+%  \@ifundefined{@mem@titlerefnolink}\@secondoftwo{%
+%    \@ifundefined{@mem@titleref}\@secondoftwo\@firstoftwo
 %  }%
-%}\ltx@secondoftwo
+%}\@secondoftwo
 %{%
 %  \DeclareRobustCommand*{\nameref}{%
 %    \@ifstar\@mem@titlerefnolink\@mem@titleref
