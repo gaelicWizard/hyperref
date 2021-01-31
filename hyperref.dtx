@@ -611,7 +611,7 @@
   \GenericWarning{%
     (hyperref)\@spaces\@spaces\@spaces\@spaces
   }{%
-    Package hyperref Message: #1\ltx@gobble
+    Package hyperref Message: #1\@gobble
   }%
 }
 %    \end{macrocode}
@@ -700,7 +700,7 @@
     \edef\{{\@backslashchar\ltx@leftbracechar}%
     \edef\}{\ltx@rightbracechar}%
     \edef\\{\@backslashchar\@backslashchar}%
-    \let\ \ltx@space
+    \let\ \space
     \ifcase\pdfmatch#2{#3}{#1} %
       \endgroup
       \expandafter\@secondoftwo
@@ -3350,7 +3350,7 @@
 %    \begin{macrocode}
 \def\HyPsd@Warning#1{%
   \begingroup
-    \let\space\ltx@space
+    \let\space\space
     \Hy@Warning{#1}%
   \endgroup
 }
@@ -3874,12 +3874,12 @@
   \lccode`\|=`\\%
   \lccode`\(=`\{%
   \lccode`\)=`\}%
-  \lccode`0=\ltx@zero
-  \lccode`1=\ltx@zero
-  \lccode`3=\ltx@zero
-  \lccode`4=\ltx@zero
-  \lccode`5=\ltx@zero
-  \lccode`7=\ltx@zero
+  \lccode`0=\@ne
+  \lccode`1=\@ne
+  \lccode`3=\@ne
+  \lccode`4=\@ne
+  \lccode`5=\@ne
+  \lccode`7=\@ne
 \lowercase{\endgroup
   \def\HyPsd@EscapeTeX#1{%
     \HyPsd@Subst!{|045}#1%
@@ -10043,8 +10043,8 @@
   \let\HyPL@SlidesSetPage\@empty
   \ltx@ifclassloaded{slides}{%
     \def\HyPL@SlidesSetPage{%
-      \advance\c@page\ltx@one
-      \ifnum\value{page}>\ltx@one
+      \advance\c@page\@ne
+      \ifnum\value{page}>\@ne
         \protected@edef\HyPL@SlidesOptionalPage{%
           \Hy@SlidesFormatOptionalPage{\thepage}%
         }%
@@ -10693,7 +10693,7 @@
   \@ifundefined{theH#1}{%
     \expandafter\def\csname theH#1\endcsname{}%
     \def\Hy@temp{\@elt{#1}}%
-    \ltx@onelevel@sanitize\Hy@temp
+    \@onelevel@sanitize\Hy@temp
     \let\HyOrg@elt\@elt
     \edef\@elt{%
       \noexpand\HyCnt@LookForParentCounter
@@ -10716,7 +10716,7 @@
   \expandafter\let\expandafter\Hy@temp@A\csname cl@#2\endcsname
   \@ifundefined{cl@#2}{%
   }{%
-    \ltx@onelevel@sanitize\Hy@temp@A
+    \@onelevel@sanitize\Hy@temp@A
     \edef\Hy@temp@A{%
       \noexpand\in@{\Hy@temp}{\Hy@temp@A}%
     }\Hy@temp@A
@@ -12256,21 +12256,21 @@
 \ltx@ifclassloaded{slides}{%
   \def\Hy@SlidesFormatOptionalPage#1{(#1)}%
   \def\Hy@PageAnchorSlidesPlain{%
-    \advance\c@page\ltx@one
+    \advance\c@page\@ne
     \edef\Hy@TempPageAnchor{%
       \noexpand\hyper@@anchor{%
         page.\the\c@slide.\the\c@overlay.\the\c@note%
-        \ifnum\c@page=\ltx@one
+        \ifnum\c@page=\@ne
         \else
           .\the\c@page
         \fi
       }%
     }%
-    \advance\c@page-\ltx@one
+    \advance\c@page-\@ne
   }%
   \def\Hy@PageAnchorSlide{%
-    \advance\c@page\ltx@one
-    \ifnum\c@page>\ltx@one
+    \advance\c@page\@ne
+    \ifnum\c@page>\@ne
       \@ifundefined{theHpage}{%
         \protected@edef\Hy@TheSlideOptionalPage{%
           \Hy@SlidesFormatOptionalPage{\thepage}%
@@ -12283,7 +12283,7 @@
     \else
       \def\Hy@TheSlideOptionalPage{}%
     \fi
-    \advance\c@page-\ltx@one
+    \advance\c@page-\@ne
     \pdfstringdef\@the@H@page{%
       \csname
         the%
@@ -12770,7 +12770,7 @@
         \begingroup
           \let\protect\@unexpandable@protect
           \edef\Hy@temp{#1}%
-          \ltx@onelevel@sanitize\Hy@temp
+          \@onelevel@sanitize\Hy@temp
           \global\let\HyInd@key\Hy@temp
         \endgroup
       }%
@@ -13537,7 +13537,7 @@
             \Hy@temp
             \space\space
             \the#1\space #2%
-            \ifnum#1=\ltx@one\else s\fi
+            \ifnum#1=\@ne\else s\fi
             \MessageBreak
           }%
         \fi
@@ -18762,7 +18762,7 @@
     \newcount\HyAnn@Count
     \HyAnn@Count=\ltx@zero
     \def\HyAnn@AbsPageLabel{%
-      \global\advance\HyAnn@Count by\ltx@one
+      \global\advance\HyAnn@Count by\@ne
       \zref@labelbyprops{HyAnn@\the\HyAnn@Count}{abspage}%
       \zref@refused{HyAnn@\the\HyAnn@Count}%
     }%
