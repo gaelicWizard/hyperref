@@ -687,26 +687,26 @@
 }{%
   \def\Hy@Match#1#2#3{%
     \begingroup
-    \edef\^{\ltx@backslashchar\string^}%
-    \edef\.{\ltx@backslashchar.}%
-    \edef\[{\ltx@backslashchar[}% ]]
-    \edef\${\ltx@backslashchar$}%
-    \edef\({\ltx@backslashchar(}%
-    \edef\){\ltx@backslashchar)}%
-    \edef\|{\ltx@backslashchar|}%
-    \edef\*{\ltx@backslashchar*}%
-    \edef\+{\ltx@backslashchar+}%
-    \edef\?{\ltx@backslashchar?}%
-    \edef\{{\ltx@backslashchar\ltx@leftbracechar}%
+    \edef\^{\@backslashchar\string^}%
+    \edef\.{\@backslashchar.}%
+    \edef\[{\@backslashchar[}% ]]
+    \edef\${\@backslashchar$}%
+    \edef\({\@backslashchar(}%
+    \edef\){\@backslashchar)}%
+    \edef\|{\@backslashchar|}%
+    \edef\*{\@backslashchar*}%
+    \edef\+{\@backslashchar+}%
+    \edef\?{\@backslashchar?}%
+    \edef\{{\@backslashchar\ltx@leftbracechar}%
     \edef\}{\ltx@rightbracechar}%
-    \edef\\{\ltx@backslashchar\ltx@backslashchar}%
+    \edef\\{\@backslashchar\@backslashchar}%
     \let\ \ltx@space
     \ifcase\pdfmatch#2{#3}{#1} %
       \endgroup
-      \expandafter\ltx@secondoftwo
+      \expandafter\@secondoftwo
     \or
       \endgroup
-      \expandafter\ltx@firstoftwo
+      \expandafter\@firstoftwo
     \else
       \Hy@Warning{%
         Internal error: Wrong pattern!\MessageBreak
@@ -714,7 +714,7 @@
         Pattern check ignored%
       }%
       \endgroup
-      \expandafter\ltx@firstoftwo
+      \expandafter\@firstoftwo
     \fi
   }%
 }
@@ -762,12 +762,12 @@
 %    \end{macro}
 %    \begin{macro}{\Hy@AtBeginDocumentHook}
 %    \begin{macrocode}
-\let\Hy@AtBeginDocumentHook\ltx@empty
+\let\Hy@AtBeginDocumentHook\@empty
 %    \end{macrocode}
 %    \end{macro}
 %    \begin{macro}{\Hy@AtEndOfPackageHook}
 %    \begin{macrocode}
-\let\Hy@AtEndOfPackageHook\ltx@empty
+\let\Hy@AtEndOfPackageHook\@empty
 %    \end{macrocode}
 %    \end{macro}
 %    Install the hook, before package `kvoptions' is loaded.
@@ -902,7 +902,7 @@
 %
 %    \begin{macrocode}
 \newdimen\@linkdim
-\let\Hy@driver\ltx@empty
+\let\Hy@driver\@empty
 \let\MaybeStopEarly\relax
 \newcount\Hy@linkcounter
 \newcount\Hy@pagecounter
@@ -2473,7 +2473,7 @@
 %    \begin{macro}{\HyPsd@CJKhook}
 %    \begin{macrocode}
 \def\HyPsd@CJKhook{%
-  \ltx@ifpackageloaded{CJK}{%
+  \@ifpackageloaded{CJK}{%
     \let\CJK@kern\relax
     \let\CJKkern\relax
     \let\CJK@CJK\relax
@@ -3560,7 +3560,7 @@
 %    \begin{macrocode}
 \begingroup
   \catcode`\Q=\active
-  \let Q\ltx@empty
+  \let Q\@empty
   \gdef\HyPsd@CheckCatcodes#1#2\HyPsd@End{%
     \global\let\HyPsd@Rest\relax
     \ifcat\relax\noexpand#1\relax
@@ -4349,9 +4349,9 @@
 %    \begin{macrocode}
 \def\HyPsd@DieFaceLarge#1!{%
   \ifnum#1>6 %
-    \expandafter\ltx@firstoftwo
+    \expandafter\@firstoftwo
   \else
-    \expandafter\ltx@secondoftwo
+    \expandafter\@secondoftwo
   \fi
   {%
     \9046\205%
@@ -4422,7 +4422,7 @@
 %    \begin{macro}{\HyPsd@@ding}
 %    \begin{macrocode}
 \def\HyPsd@@ding#1!{%
-  \ltx@ifundefined{HyPsd@ding@#1}{%
+  \@ifundefined{HyPsd@ding@#1}{%
     \ifnum#1<127 %
       \9047%
       \HyPsd@DecimalToOctalSecond{\IntCalcSub#1!32!}%
@@ -4688,8 +4688,8 @@
 %    \begin{macro}{\IfHyperBooleanExists}
 %    \begin{macrocode}
 \def\IfHyperBooleanExists#1{%
-  \ltx@ifundefined{Hy@#1false}\ltx@secondoftwo{%
-    \ltx@ifundefined{KV@Hyp@#1@default}\ltx@secondoftwo\ltx@firstoftwo
+  \@ifundefined{Hy@#1false}\@secondoftwo{%
+    \@ifundefined{KV@Hyp@#1@default}\@secondoftwo\@firstoftwo
   }%
 }
 %    \end{macrocode}
@@ -4703,11 +4703,11 @@
 \def\IfHyperBoolean#1{%
   \IfHyperBooleanExists{#1}{%
     \csname ifHy@#1\endcsname
-      \expandafter\ltx@firstoftwo
+      \expandafter\@firstoftwo
     \else
-      \expandafter\ltx@secondoftwo
+      \expandafter\@secondoftwo
     \fi
-  }\ltx@secondoftwo
+  }\@secondoftwo
 }
 %    \end{macrocode}
 %    \end{macro}
@@ -4753,7 +4753,7 @@
 %    \begin{macro}{\Hy@DisableOption}
 %    \begin{macrocode}
 \def\Hy@DisableOption#1{%
-  \ltx@ifundefined{KV@Hyp@#1@default}{%
+  \@ifundefined{KV@Hyp@#1@default}{%
     \define@key{Hyp}{#1}%
   }{%
     \define@key{Hyp}{#1}[]%
@@ -5162,7 +5162,7 @@
 %
 %    \begin{macrocode}
 \newif\ifHy@DviMode
-\let\Hy@DviErrMsg\ltx@empty
+\let\Hy@DviErrMsg\@empty
 \ifpdf
   \def\Hy@DviErrMsg{pdfTeX or LuaTeX is running in PDF mode}%
 \else
@@ -5182,13 +5182,13 @@
 \fi
 \def\HyOpt@CheckDvi#1{%
   \ifHy@DviMode
-    \expandafter\ltx@firstofone
+    \expandafter\@firstofone
   \else
     \Hy@Error{%
       Wrong DVI mode driver option `#1',\MessageBreak
       because \Hy@DviErrMsg
     }\@ehc
-    \expandafter\ltx@gobble
+    \expandafter\@gobble
   \fi
 }
 %    \end{macrocode}
@@ -5367,7 +5367,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\let\HyOpt@DriverFallback\ltx@empty
+\let\HyOpt@DriverFallback\@empty
 \define@key{Hyp}{driverfallback}{%
   \ifHy@DviMode
     \def\HyOpt@DriverFallback{#1}%
@@ -5379,14 +5379,14 @@
         Invalid driver `#1' for option\MessageBreak
         `driverfallback'%
       }%
-      \let\HyOpt@DriverFallback\ltx@empty
+      \let\HyOpt@DriverFallback\@empty
     }%
   \fi
 }
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\let\HyOpt@CustomDriver\ltx@empty
+\let\HyOpt@CustomDriver\@empty
 \define@key{Hyp}{customdriver}{%
   \IfFileExists{#1.def}{%
     \def\HyOpt@CustomDriver{#1}%
@@ -5995,7 +5995,7 @@
   \def\Hy@colorlink##1{\begingroup}%
   \def\Hy@endcolorlink{\endgroup}%
   \def\@pdfborder{0 0 0}%
-  \let\@pdfborderstyle\ltx@empty
+  \let\@pdfborderstyle\@empty
 }
 \define@key{Hyp}{ocgcolorlinks}[true]{%
   \Hy@boolkey{ocgcolorlinks}{#1}%
@@ -6205,7 +6205,7 @@
       of option `pdfpageduration'\MessageBreak
       is replaced by an empty value%
     }%
-    \let\@pdfpageduration\ltx@empty
+    \let\@pdfpageduration\@empty
   }%
 }
 %    \end{macrocode}
@@ -6611,7 +6611,7 @@
     \x
   \fi
 }
-\global\let\HyInfo@AddonList\ltx@empty
+\global\let\HyInfo@AddonList\@empty
 %    \end{macrocode}
 %    \begin{macrocode}
 \define@key{Hyp}{pdfview}{\calculate@pdfview#1 \\}
@@ -6637,14 +6637,14 @@
 \fi
 \define@key{Hyp}{pdfstartpage}{%
   \ifx\\#1\\%
-    \let\@pdfstartpage\ltx@empty
+    \let\@pdfstartpage\@empty
   \else
     \edef\@pdfstartpage{\Hy@number{#1}}%
   \fi
 }%
 \define@key{Hyp}{pdfstartview}{%
   \ifx\\#1\\%
-    \let\@pdfstartview\ltx@empty
+    \let\@pdfstartview\@empty
   \else
     \hypercalcbpdef\@pdfstartview{/#1}%
   \fi
@@ -6747,7 +6747,7 @@
   \fi
   \ifx\@pdflang\relax
   \else
-    \ifx\@pdflang\ltx@empty
+    \ifx\@pdflang\@empty
     \else
 %    \end{macrocode}
 %    Test according to ABNF of RFC 3066.
@@ -6810,7 +6810,7 @@
                 }%
               }{}%
               \Hy@Match\Hy@temp{icase}{%
-                (-[a-wyz0-9]-).*\ltx@backslashchar1%
+                (-[a-wyz0-9]-).*\@backslashchar1%
               }{%
                 \Hy@Warning{%
                   Invalid language identifier `#1'\MessageBreak
@@ -6881,20 +6881,20 @@
 \def\@runbordercolor{0 .7 .7}
 \def\@citebordercolor{0 1 0}
 \def\@pdfhighlight{/I}
-\let\@pdftitle\ltx@empty
-\let\@pdfauthor\ltx@empty
+\let\@pdftitle\@empty
+\let\@pdfauthor\@empty
 \let\@pdfproducer\relax
 \def\@pdfcreator{LaTeX with hyperref}
-\let\@pdfcreationdate\ltx@empty
-\let\@pdfmoddate\ltx@empty
-\let\@pdfsubject\ltx@empty
-\let\@pdfkeywords\ltx@empty
-\let\@pdftrapped\ltx@empty
-\let\@pdfpagescrop\ltx@empty
+\let\@pdfcreationdate\@empty
+\let\@pdfmoddate\@empty
+\let\@pdfsubject\@empty
+\let\@pdfkeywords\@empty
+\let\@pdftrapped\@empty
+\let\@pdfpagescrop\@empty
 \def\@pdfstartview{/Fit}
 \def\@pdfremotestartview{/Fit}
 \def\@pdfstartpage{1}
-\let\@pdfprintpagerange\ltx@empty
+\let\@pdfprintpagerange\@empty
 \let\@pdflang\relax
 \let\PDF@SetupDoc\@empty
 \let\PDF@FinishDoc\@empty
@@ -6963,15 +6963,15 @@
         \def\Hy@pkg{tex4ht}%
         \def\Hy@temp@A#1\RequirePackage[#2]#3#4\Hy@NIL{%
           \def\Hy@param{#2#3}%
-          \ifx\Hy@param\ltx@empty
-            \expandafter\ltx@gobble
+          \ifx\Hy@param\@empty
+            \expandafter\@gobble
           \else
             \def\Hy@param{#3}%
             \ifx\Hy@param\Hy@pkg
               \PassOptionsToPackage{#2}{tex4ht}%
               \expandafter\expandafter\expandafter\@gobble
             \else
-              \expandafter\expandafter\expandafter\ltx@firstofone
+              \expandafter\expandafter\expandafter\@firstofone
             \fi
           \fi
           {\Hy@temp@A#4\Hy@NIL}%
@@ -7001,7 +7001,7 @@
     \@ifundefined{xspaceaddexceptions}{%
     }{%
       \def\Hy@xspace@end{%
-        \ltx@gobble{end for xspace}%
+        \@gobble{end for xspace}%
       }%
       \xspaceaddexceptions{%
         \Hy@xspace@end,\hyper@linkend,\hyper@anchorend
@@ -7010,7 +7010,7 @@
   }%
 }{%
   \def\Hy@xspace@end{%
-    \ltx@gobble{end for xspace}%
+    \@gobble{end for xspace}%
   }%
   \xspaceaddexceptions{\Hy@xspace@end,\hyper@linkend,\hyper@anchorend}%
 }
@@ -7292,8 +7292,8 @@
 %    If the driver is not given, find the right driver or
 %    use the default driver.
 %    \begin{macrocode}
-  \let\HyOpt@DriverType\ltx@empty
-  \ifx\HyOpt@CustomDriver\ltx@empty
+  \let\HyOpt@DriverType\@empty
+  \ifx\HyOpt@CustomDriver\@empty
     \ifx\Hy@driver\@empty
       \def\HyOpt@DriverType{ (autodetected)}%
       \providecommand*{\Hy@defaultdriver}{hdvips}%
@@ -7324,7 +7324,7 @@
               \ifnum\ifvtex\OpMode\else\m@ne\fi=\tw@
                 \def\Hy@driver{hvtex}%
               \else
-                \ifx\HyOpt@DriverFallback\ltx@empty
+                \ifx\HyOpt@DriverFallback\@empty
                   \let\Hy@driver\Hy@defaultdriver
                   \def\HyOpt@DriverType{ (default)}%
                 \else
@@ -7334,7 +7334,7 @@
                       \noexpand\kvsetkeys{Hyp}{\the\toks@}%
                     }%
                   \x
-                  \ifx\Hy@driver\ltx@empty
+                  \ifx\Hy@driver\@empty
                     \let\Hy@driver\Hy@defaultdriver
                     \def\HyOpt@DriverType{ (default)}%
                   \else
@@ -7434,7 +7434,7 @@
     \def\@pdfpagemode{UseOutlines}%
   \fi
 \else
-  \let\@bookmarkopenstatus\ltx@gobble
+  \let\@bookmarkopenstatus\@gobble
   \Hy@Info{Bookmarks OFF}%
   \Hy@AtEndOfPackage{%
     \global\let\ReadBookmarks\relax
@@ -7450,7 +7450,7 @@
 %    Add wrapper for setting standard catcodes (babel's shorthands).
 %    \begin{macrocode}
 \def\Hy@CatcodeWrapper#1{%
-  \let\Hy@EndWrap\ltx@empty
+  \let\Hy@EndWrap\@empty
   \def\TMP@EnsureCode##1##2{%
     \edef\Hy@EndWrap{%
       \Hy@EndWrap
@@ -7572,10 +7572,10 @@
     \@ifstar\@pagerefstar\T@pageref
   }%
 %  \@ifclassloaded{memoir}{%
-%    \@ifundefined{@mem@titlerefnolink}\ltx@secondoftwo{%
-%      \@ifundefined{@mem@titleref}\ltx@secondoftwo\ltx@firstoftwo
+%    \@ifundefined{@mem@titlerefnolink}\@secondoftwo{%
+%      \@ifundefined{@mem@titleref}\@secondoftwo\@firstoftwo
 %    }%
-%  }\ltx@secondoftwo
+%  }\@secondoftwo
 %  {%
 %    \DeclareRobustCommand*{\nameref}{%
 %      \@ifstar\@mem@titlerefnolink\@mem@titleref
@@ -8057,12 +8057,12 @@
     \begingroup
       \protected@edef\Hy@tempa{#2}%
       \edef\Hy@tempb{#3}%
-      \ifx\Hy@tempa\ltx@empty
-        \ifx\Hy@tempb\ltx@empty
+      \ifx\Hy@tempa\@empty
+        \ifx\Hy@tempb\@empty
           \Hy@Warning{Suppressing link with empty target}%
           \toks@{%
             \endgroup
-            \ltx@secondoftwo
+            \@secondoftwo
           }%
         \else
           \toks@{%
@@ -8224,9 +8224,9 @@
     \expandafter\def\expandafter\z\expandafter##\expandafter1\y##2\@nil{%
       \endgroup
       \ifx\relax##2\relax
-        \expandafter\ltx@secondoftwo
+        \expandafter\@secondoftwo
       \else
-        \expandafter\ltx@firstoftwo
+        \expandafter\@firstoftwo
       \fi
     }%
   \expandafter\expandafter\expandafter\z\expandafter\x\y\@nil
@@ -8301,7 +8301,7 @@
   \fi
   \let\anchor@spot\@empty
 }
-\let\anchor@spot\ltx@empty
+\let\anchor@spot\@empty
 %    \end{macrocode}
 %
 % \section{Option `destlabel'}
@@ -8341,7 +8341,7 @@
         \Hy@IsNotEmpty{dest@name}{%
           \Hy@IsNotEmpty{label@name}{%
             \global\expandafter
-            \let\csname HyDL!#1\endcsname\ltx@empty
+            \let\csname HyDL!#1\endcsname\@empty
             \if@filesw
               \protected@write\@auxout{}{%
                 \string\hyper@newdestlabel
@@ -8371,11 +8371,11 @@
 %    \begin{macro}{\Hy@IsNotEmpty}
 %    \begin{macrocode}
   \def\Hy@IsNotEmpty#1{%
-    \@ifundefined{#1}\ltx@gobble{%
-      \expandafter\ifx\csname#1\endcsname\ltx@empty
-        \expandafter\ltx@gobble
+    \@ifundefined{#1}\@gobble{%
+      \expandafter\ifx\csname#1\endcsname\@empty
+        \expandafter\@gobble
       \else
-        \expandafter\ltx@firstofone
+        \expandafter\@firstofone
       \fi
     }%
   }%
@@ -8390,7 +8390,7 @@
 %    \begin{macro}{\HyperDestLabelReplace}
 %    \begin{macrocode}
   \def\HyperDestLabelReplace#1{%
-    \ltx@ifundefined{HyDL@#1}{%
+    \@ifundefined{HyDL@#1}{%
       #1%
     }{%
       \csname HyDL@#1\endcsname
@@ -8409,18 +8409,18 @@
 %    \end{macrocode}
 %    \begin{macro}{\hyper@newdestlabel}
 %    \begin{macrocode}
-  \let\hyper@newdestlabel\ltx@gobbletwo
+  \let\hyper@newdestlabel\@gobbletwo
 %    \end{macrocode}
 %    \end{macro}
 %    \begin{macro}{\HyperDestLabelReplace}
 %    \begin{macrocode}
-  \let\HyperDestLabelReplace\ltx@firstofone
+  \let\HyperDestLabelReplace\@firstofone
 %    \end{macrocode}
 %    \end{macro}
 %    \begin{macro}{\HyperDestRename}
 %    \begin{macrocode}
 %    \end{macrocode}
-  \let\HyperDestRename\ltx@gobbletwo
+  \let\HyperDestRename\@gobbletwo
 %    \end{macro}
 %    \begin{macrocode}
 \fi
@@ -8791,7 +8791,7 @@
   \fi
   \HyField@PrintFlags{Submit}{submit button field}%
   \bitsetIsEmpty{HyField@Submit}{%
-    \let\Fld@submitflags\ltx@empty
+    \let\Fld@submitflags\@empty
   }{%
     \edef\Fld@submitflags{/Flags \bitsetGetDec{HyField@Submit}}%
   }%
@@ -8816,7 +8816,7 @@
   \HyField@UseFlag{F}{LockedContents}%
   \HyField@PrintFlags{F}{#1}%
   \bitsetIsEmpty{HyField@F}{%
-    \let\Fld@annotflags\ltx@empty
+    \let\Fld@annotflags\@empty
   }{%
     \edef\Fld@annotflags{/F \bitsetGetDec{HyField@F}}%
   }%
@@ -8837,7 +8837,7 @@
   \HyField@SetFlag{Ff}{Pushbutton}%
   \HyField@PrintFlags{Ff}{push button field}%
   \bitsetIsEmpty{HyField@Ff}{%
-    \let\Fld@flags\ltx@empty
+    \let\Fld@flags\@empty
   }{%
     \edef\Fld@flags{/Ff \bitsetGetDec{HyField@Ff}}%
   }%
@@ -8857,7 +8857,7 @@
   \HyField@UseFlag{Ff}{NoExport}%
   \HyField@PrintFlags{Ff}{check box field}%
   \bitsetIsEmpty{HyField@Ff}{%
-    \let\Fld@flags\ltx@empty
+    \let\Fld@flags\@empty
   }{%
     \edef\Fld@flags{/Ff \bitsetGetDec{HyField@Ff}}%
   }%
@@ -8880,7 +8880,7 @@
   \HyField@UseFlag{Ff}{RadiosInUnison}%
   \HyField@PrintFlags{Ff}{radio button field}%
   \bitsetIsEmpty{HyField@Ff}{%
-    \let\Fld@flags\ltx@empty
+    \let\Fld@flags\@empty
   }{%
     \edef\Fld@flags{/Ff \bitsetGetDec{HyField@Ff}}%
   }%
@@ -8919,7 +8919,7 @@
   \HyField@UseFlag{Ff}{RichText}%
   \HyField@PrintFlags{Ff}{text field}%
   \bitsetIsEmpty{HyField@Ff}{%
-    \let\Fld@flags\ltx@empty
+    \let\Fld@flags\@empty
   }{%
     \edef\Fld@flags{/Ff \bitsetGetDec{HyField@Ff}}%
   }%
@@ -8951,7 +8951,7 @@
   \HyField@UseFlag{Ff}{CommitOnSelChange}%
   \HyField@PrintFlags{Ff}{choice field}%
   \bitsetIsEmpty{HyField@Ff}{%
-    \let\Fld@flags\ltx@empty
+    \let\Fld@flags\@empty
   }{%
     \edef\Fld@flags{/Ff \bitsetGetDec{HyField@Ff}}%
   }%
@@ -8969,8 +8969,8 @@
 %    \begin{macrocode}
 \def\HyField@PDFChoices#1{%
   \begingroup
-    \global\let\Fld@choices\ltx@empty
-    \let\HyTmp@optlist\ltx@empty
+    \global\let\Fld@choices\@empty
+    \let\HyTmp@optlist\@empty
     \let\HyTmp@optitem\relax
     \count@=0 %
     \kv@parse{#1}{%
@@ -9329,7 +9329,7 @@
   \Fld@DingDef\Fld@radiosymbol{#1}%
 }
 \def\Fld@DingDef#1#2{%
-  \let\Fld@temp\ltx@empty
+  \let\Fld@temp\@empty
   \Fld@@DingDef#2\ding{}\@nil
   \let#1\Fld@temp
 }
@@ -9373,17 +9373,17 @@
 }
 %    \end{macrocode}
 %    \begin{macrocode}
-\let\Fld@onclick@code\ltx@empty
-\let\Fld@format@code\ltx@empty
-\let\Fld@validate@code\ltx@empty
-\let\Fld@calculate@code\ltx@empty
-\let\Fld@keystroke@code\ltx@empty
-\let\Fld@onfocus@code\ltx@empty
-\let\Fld@onblur@code\ltx@empty
-\let\Fld@onmousedown@code\ltx@empty
-\let\Fld@onmouseup@code\ltx@empty
-\let\Fld@onenter@code\ltx@empty
-\let\Fld@onexit@code\ltx@empty
+\let\Fld@onclick@code\@empty
+\let\Fld@format@code\@empty
+\let\Fld@validate@code\@empty
+\let\Fld@calculate@code\@empty
+\let\Fld@keystroke@code\@empty
+\let\Fld@onfocus@code\@empty
+\let\Fld@onblur@code\@empty
+\let\Fld@onmousedown@code\@empty
+\let\Fld@onmouseup@code\@empty
+\let\Fld@onenter@code\@empty
+\let\Fld@onexit@code\@empty
 \def\Hy@temp#1{%
   \expandafter\Hy@@temp\csname Fld@#1@code\endcsname{#1}%
 }
@@ -9410,7 +9410,7 @@
 \Hy@temp{onexit}
 %    \end{macrocode}
 %    \begin{macrocode}
-\let\Fld@calculate@sortkey\ltx@empty
+\let\Fld@calculate@sortkey\@empty
 \define@key{Field}{calculatesortkey}[1]{%
   \def\Fld@calculate@sortkey{#1}%
 }
@@ -9662,10 +9662,10 @@
   \def\hyper@@anchor##1##2{##2\Hy@xspace@end}%
   \global\let\hyper@livelink\hyper@link
   \gdef\hyper@link##1##2##3{##3\Hy@xspace@end}%
-  \let\hyper@anchor\ltx@gobble
-  \let\hyper@anchorstart\ltx@gobble
+  \let\hyper@anchor\@gobble
+  \let\hyper@anchorstart\@gobble
   \def\hyper@anchorend{\Hy@xspace@end}%
-  \let\hyper@linkstart\ltx@gobbletwo
+  \let\hyper@linkstart\@gobbletwo
   \def\hyper@linkend{\Hy@xspace@end}%
   \def\hyper@linkurl##1##2{##1\Hy@xspace@end}%
   \def\hyper@linkfile##1##2##3{##1\Hy@xspace@end}%
@@ -9674,12 +9674,12 @@
 \def\stop@hyper{%
   \def\hyper@link@[##1]##2##3##4{##4\Hy@xspace@end}%
   \let\Hy@backout\@gobble
-  \let\hyper@@anchor\ltx@gobble
+  \let\hyper@@anchor\@gobble
   \def\hyper@link##1##2##3{##3\Hy@xspace@end}%
-  \let\hyper@anchor\ltx@gobble
-  \let\hyper@anchorstart\ltx@gobble
+  \let\hyper@anchor\@gobble
+  \let\hyper@anchorstart\@gobble
   \def\hyper@anchorend{\Hy@xspace@end}%
-  \let\hyper@linkstart\ltx@gobbletwo
+  \let\hyper@linkstart\@gobbletwo
   \def\hyper@linkend{\Hy@xspace@end}%
   \def\hyper@linkurl##1##2{##1\Hy@xspace@end}%
   \def\hyper@linkfile##1##2##3{##1\Hy@xspace@end}%
@@ -9810,7 +9810,7 @@
       \string\gdef\string\HyperFirstAtBeginDocument\string#1{\string#1}%
     }%
   \fi
-  \let\HyperFirstAtBeginDocument\ltx@firstofone
+  \let\HyperFirstAtBeginDocument\@firstofone
 %    \end{macrocode}
 %
 % Now the code to deal with adding the hyperref package to a document
@@ -9825,7 +9825,7 @@
     \def\@starttoc#1{%
       \begingroup
         \makeatletter
-        \ltx@ifpackageloaded{parskip}{\parskip\z@}{}%
+        \@ifpackageloaded{parskip}{\parskip\z@}{}%
         \IfFileExists{\jobname.#1}{%
           \Hy@WarningNoLine{%
             old #1 file detected, not used; run LaTeX again%
@@ -9950,12 +9950,12 @@
 %
 %    \begin{macrocode}
 \RequirePackage{atbegshi}[2007/09/09]
-\let\Hy@EveryPageHook\ltx@empty
-\let\Hy@EveryPageBoxHook\ltx@empty
-\let\Hy@FirstPageHook\ltx@empty
+\let\Hy@EveryPageHook\@empty
+\let\Hy@EveryPageBoxHook\@empty
+\let\Hy@FirstPageHook\@empty
 \AtBeginShipout{%
   \Hy@EveryPageHook
-  \ifx\Hy@EveryPageBoxHook\ltx@empty
+  \ifx\Hy@EveryPageBoxHook\@empty
   \else
     \setbox\AtBeginShipoutBox=\vbox{%
       \offinterlineskip
@@ -9967,7 +9967,7 @@
 \ltx@iffileloaded{hpdftex.def}{%
   \AtBeginShipout{%
     \Hy@FirstPageHook
-    \global\let\Hy@FirstPageHook\ltx@empty
+    \global\let\Hy@FirstPageHook\@empty
   }%
 }{%
   \AtBeginShipoutFirst{%
@@ -9976,7 +9976,7 @@
 }
 \g@addto@macro\Hy@FirstPageHook{%
   \PDF@FinishDoc
-  \global\let\PDF@FinishDoc\ltx@empty
+  \global\let\PDF@FinishDoc\@empty
 }
 %    \end{macrocode}
 %
@@ -10012,7 +10012,7 @@
 %    The page labels are collected in \cmd{\HyPL@Labels} and
 %    set at the end of the document.
 %    \begin{macrocode}
-  \let\HyPL@Labels\ltx@empty
+  \let\HyPL@Labels\@empty
 %    \end{macrocode}
 %    \end{macro}
 %    \begin{macro}{\Hy@abspage}
@@ -10028,7 +10028,7 @@
 %    \begin{macrocode}
   \def\HyPL@LastType{init}%
   \def\HyPL@LastNumber{0}%
-  \let\HyPL@LastPrefix\ltx@empty
+  \let\HyPL@LastPrefix\@empty
 %    \end{macrocode}
 %    Definitions for the PDF names of the \LaTeX{} pendents.
 %    \begin{macrocode}
@@ -10040,7 +10040,7 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-  \let\HyPL@SlidesSetPage\ltx@empty
+  \let\HyPL@SlidesSetPage\@empty
   \ltx@ifclassloaded{slides}{%
     \def\HyPL@SlidesSetPage{%
       \advance\c@page\ltx@one
@@ -10049,9 +10049,9 @@
           \Hy@SlidesFormatOptionalPage{\thepage}%
         }%
       \else
-        \let\HyPL@SlidesOptionalPage\ltx@empty
+        \let\HyPL@SlidesOptionalPage\@empty
       \fi
-      \advance\c@page-\ltx@one
+      \advance\c@page-\@one
       \def\HyPL@page{%
         \csname the\Hy@SlidesPage\endcsname
         \HyPL@SlidesOptionalPage
@@ -10076,7 +10076,7 @@
       \fi
       \let\HyPL@Type\relax
       \ifnum\c@page>0 %
-        \ifx\HyPL@SlidesSetPage\ltx@empty
+        \ifx\HyPL@SlidesSetPage\@empty
           \expandafter\HyPL@CheckThePage\HyPL@page\@nil
         \fi
       \fi
@@ -10275,7 +10275,7 @@
 %    \begin{macrocode}
 %<*pdftex>
 \pdf@ifdraftmode{%
-  \let\Hy@PutCatalog\ltx@gobble
+  \let\Hy@PutCatalog\@gobble
 }{%
   \let\Hy@PutCatalog\pdfcatalog
 }
@@ -11167,7 +11167,7 @@
     \let\refstepcounter\new@refstepcounter
   }%
   \def\endequation{%
-    \ifx\Hy@raisedlink\ltx@empty
+    \ifx\Hy@raisedlink\@empty
       \hyper@anchorend
     \else
       \mathclose{\Hy@raisedlink{\hyper@anchorend}}%
@@ -11414,7 +11414,7 @@
       \else
         \Hy@raisedlink{%
           \hyper@anchorstart{%
-            \ltx@ifundefined{Hy@dth@currentHref}%
+            \@ifundefined{Hy@dth@currentHref}%
             \@currentHref\Hy@dth@currentHref
           }\hyper@anchorend
         }%
@@ -11474,9 +11474,9 @@
   \long\def\@mpfootnotetext#1{%
     \H@@mpfootnotetext{%
       \ifHy@nesting
-        \expandafter\ltx@firstoftwo
+        \expandafter\@firstoftwo
       \else
-        \expandafter\ltx@secondoftwo
+        \expandafter\@secondoftwo
       \fi
       {%
         \expandafter\hyper@@anchor\expandafter{%
@@ -11494,9 +11494,9 @@
   \long\def\@footnotetext#1{%
     \H@@footnotetext{%
       \ifHy@nesting
-        \expandafter\ltx@firstoftwo
+        \expandafter\@firstoftwo
       \else
-        \expandafter\ltx@secondoftwo
+        \expandafter\@secondoftwo
       \fi
       {%
         \expandafter\hyper@@anchor\expandafter{%
@@ -12287,12 +12287,12 @@
     \pdfstringdef\@the@H@page{%
       \csname
         the%
-        \ltx@ifundefined{theH\Hy@SlidesPage}{}{H}%
+        \@ifundefined{theH\Hy@SlidesPage}{}{H}%
         \Hy@SlidesPage
       \endcsname
       \Hy@TheSlideOptionalPage
     }%
-    \ltx@gobblethree
+    \@gobblethree
   }%
   \def\Hy@SlidesPage{slide}%
   \g@addto@macro\slide{%
@@ -12429,7 +12429,7 @@
   \edef\x{\endgroup
     \def\noexpand\Hy@tocdestname{#4}%
   }\x
-  \ifx\Hy@tocdestname\ltx@empty
+  \ifx\Hy@tocdestname\@empty
     \csname l@#1\endcsname{#2}{#3}%
   \else
     \ifcase\Hy@linktoc % none
@@ -12440,7 +12440,7 @@
       }{#3}%
     \or % page
       \def\Hy@temp{#3}%
-      \ifx\Hy@temp\ltx@empty
+      \ifx\Hy@temp\@empty
         \csname l@#1\endcsname{#2}{#3}%
       \else
         \csname l@#1\endcsname{{#2}}{%
@@ -12449,7 +12449,7 @@
       \fi
     \else % all
       \def\Hy@temp{#3}%
-      \ifx\Hy@temp\ltx@empty
+      \ifx\Hy@temp\@empty
         \csname l@#1\endcsname{%
           \hyper@linkstart{link}{\Hy@tocdestname}{#2}\hyper@linkend
         }{}%
@@ -12732,7 +12732,7 @@
             \ifx\Hy@temp@A\HyInd@ParenRight
               \HyInd@DefKey{#1}%
               \@ifundefined{HyInd@(\HyInd@key)}{%
-                \let\Hy@temp\ltx@empty
+                \let\Hy@temp\@empty
               }{%
                 \expandafter\let\expandafter\Hy@temp
                 \csname HyInd@(\HyInd@key)\endcsname
@@ -13530,7 +13530,7 @@
     \fi
     \ifnum\Hy@pdfmajorminor@version=\Hy@pdf@majorminor@version\relax
     \else
-      \let\Hy@temp\ltx@empty
+      \let\Hy@temp\@empty
       \def\Hy@temp@A#1#2{%
         \ifnum#1>\ltx@zero
           \edef\Hy@temp{%
@@ -13550,11 +13550,11 @@
       }{%
          \Hy@temp@A\pdflastlink{link}%
       }%
-      \ifx\Hy@temp\ltx@empty
+      \ifx\Hy@temp\@empty
         \Hy@pdfmajorversion=\Hy@pdf@majorversion\relax
         \Hy@pdfminorversion=\Hy@pdf@minorversion\relax
       \else
-        \let\Hy@temp@A\ltx@empty
+        \let\Hy@temp@A\@empty
         \ifnum\Hy@pdf@majorminor@version=104 %
           \IfFileExists{pdf14.sty}{%
             \def\Hy@temp@A{%
@@ -13577,7 +13577,7 @@
           \expandafter\string\Hy@pdfminorversion=\Hy@pdf@minorversion
           \string\relax
           \ifnum\Hy@pdf@majorminor@version<105 %
-            \ltx@ifundefined{pdfobjcompresslevel}{%
+            \@ifundefined{pdfobjcompresslevel}{%
             }{%
               \MessageBreak
               \space\space
@@ -14360,7 +14360,7 @@
 %    \begin{macrocode}
 %<*hypertex>
 \providecommand*{\XR@ext}{dvi}
-\let\PDF@FinishDoc\ltx@empty
+\let\PDF@FinishDoc\@empty
 \def\PDF@SetupDoc{%
   \ifx\@baseurl\@empty
   \else
@@ -15346,7 +15346,7 @@
 \providecommand*{\XR@ext}{htm}
 \RequirePackage{vtexhtml}
 \newif\if@Localurl
-\let\PDF@FinishDoc\ltx@empty
+\let\PDF@FinishDoc\@empty
 \def\PDF@SetupDoc{%
   \ifx\@baseurl\@empty
   \else
@@ -15433,7 +15433,7 @@
 \def\@Form[#1]{%
   \Hy@Message{Sorry, TeXpider does not yet support FORMs}%
 }
-\let\@endForm\ltx@empty
+\let\@endForm\@empty
 \def\@Gauge[#1]#2#3#4{% parameters, label, minimum, maximum
   \Hy@Message{Sorry, TeXpider does not yet support FORM gauges}%
 }
@@ -16247,7 +16247,7 @@
     \ifmmode
       \def\Hy@LinkMath{$}%
     \else
-      \let\Hy@LinkMath\ltx@empty
+      \let\Hy@LinkMath\@empty
     \fi
     \Hy@SaveSpaceFactor
     \hbox\bgroup
@@ -16552,7 +16552,7 @@
   \edef\@processme{\noexpand\pdf@toks={\the\pdf@defaulttoks}}%
   \@processme
   \let\pdf@type\relax
-  \let\pdf@objdef\ltx@empty
+  \let\pdf@objdef\@empty
   \kvsetkeys{PDF}{#2}%
   \ifHy@pdfmarkerror
   \else
@@ -16566,7 +16566,7 @@
        \ifx\\#1\\%
          \literalps@out{%
            [%
-           \ifx\pdf@objdef\ltx@empty
+           \ifx\pdf@objdef\@empty
            \else
              /_objdef\string{\pdf@objdef\string}%
            \fi
@@ -16582,7 +16582,7 @@
          \pdf@rect{#1}%
          \literalps@out{%
            [%
-           \ifx\pdf@objdef\ltx@empty
+           \ifx\pdf@objdef\@empty
            \else
              /_objdef\string{\pdf@objdef\string}%
            \fi
@@ -16618,7 +16618,7 @@
   \begingroup
     \chardef\x=1 %
     \def\Hy@temp{#1}%
-    \ifx\Hy@temp\ltx@empty
+    \ifx\Hy@temp\@empty
       \chardef\x=0 %
     \else
       \def\y{\anchor@spot}%
@@ -16639,7 +16639,7 @@
     \ifmmode
       \def\Hy@LinkMath{$}%
     \else
-      \let\Hy@LinkMath\ltx@empty
+      \let\Hy@LinkMath\@empty
     \fi
     \ifHy@breaklinks
       \Hy@setouterhbox\pdf@box{%
@@ -16728,7 +16728,7 @@
 \def\pdf@linktype{link}
 % named object?
 \define@key{PDF}{objdef}{\edef\pdf@objdef{#1}}
-\let\pdf@objdef\ltx@empty
+\let\pdf@objdef\@empty
 % parameter is a stream of PDF
 \define@key{PDF}{Raw}{\pdf@addtoksx{#1}}
 % parameter is a name
@@ -17018,7 +17018,7 @@
 %    \begin{macrocode}
 %<*dvips>
 \providecommand*{\XR@ext}{pdf}
-\let\Hy@raisedlink\ltx@empty
+\let\Hy@raisedlink\@empty
 \def\literalps@out#1{\special{ps:SDict begin #1 end}}%
 \def\headerps@out#1{\special{! #1}}%
 \input{pdfmark.def}%
@@ -17185,7 +17185,7 @@
 %    \begin{macrocode}
 %<*vtexpdfmark>
 \providecommand*{\XR@ext}{pdf}
-\let\Hy@raisedlink\ltx@empty
+\let\Hy@raisedlink\@empty
 \def\literalps@out#1{\special{pS:#1}}%
 \def\headerps@out#1{\immediate\special{pS:#1}}%
 \input{pdfmark.def}%
@@ -17573,7 +17573,7 @@
 % |\special| commands.
 %<*dvipsone>
 \providecommand*{\XR@ext}{pdf}
-\let\Hy@raisedlink\ltx@empty
+\let\Hy@raisedlink\@empty
 \providecommand*\@pdfborder{0 0 1}
 \providecommand*\@pdfborderstyle{}
 \def\literalps@out#1{\special{ps:#1}}%
@@ -17773,14 +17773,14 @@
 %    \begin{macrocode}
 %<*tex4ht>
 \providecommand*{\XR@ext}{html}
-\let\Hy@raisedlink\ltx@empty
+\let\Hy@raisedlink\@empty
 \@ifpackageloaded{tex4ht}{%
   \Hy@InfoNoLine{tex4ht is already loaded}%
 }{%
   \RequirePackage[htex4ht]{tex4ht}%
 }
 \hyperlinkfileprefix{}
-\let\PDF@FinishDoc\ltx@empty
+\let\PDF@FinishDoc\@empty
 \def\PDF@SetupDoc{%
   \ifx\@baseurl\@empty
   \else
@@ -17890,7 +17890,7 @@
 \ifx \rEfLiNK \UnDef
   \def\rEfLiNK #1#2{#2}%
 \fi
-\let\backref\ltx@gobble
+\let\backref\@gobble
 %    \end{macrocode}
 %    Fix for tex4ht.
 %    \begin{macrocode}
@@ -18116,7 +18116,7 @@
 }}%
   \kvsetkeys{Form}{#1}%
 }
-\let\@endForm\ltx@empty
+\let\@endForm\@empty
 \def\@Gauge[#1]#2#3#4{% parameters, label, minimum, maximum
   \Hy@Message{Sorry, pdfmark drivers do not support FORM gauges}%
 }
@@ -18143,7 +18143,7 @@
       \string{#1\HyField@TheAnnotCount\string}%
     }%
   }%
-  \ifx\Fld@calculate@code\ltx@empty
+  \ifx\Fld@calculate@code\@empty
   \else
     \pdfmark{%
       pdfmark=/APPEND,%
@@ -18158,7 +18158,7 @@
 %    \begin{macrocode}
 \def\@TextField[#1]#2{% parameters, label
   \def\Fld@name{#2}%
-  \let\Fld@default\ltx@empty
+  \let\Fld@default\@empty
   \let\Fld@value\@empty
   \def\Fld@width{\DefaultWidthofText}%
   \def\Fld@height{%
@@ -18403,7 +18403,7 @@
 \def\@Form[#1]{%
   \Hy@Message{Sorry, HyperTeX does not support FORMs}%
 }
-\let\@endForm\ltx@empty
+\let\@endForm\@empty
 \def\@Gauge[#1]#2#3#4{% parameters, label, minimum, maximum
   \Hy@Message{Sorry, HyperTeX does not support FORM gauges}%
 }
@@ -18441,7 +18441,7 @@
 \def\@TextField[#1]#2{% parameters, label
   \let\Hy@reserved@a\@empty
   \def\Fld@name{#2}%
-  \let\Fld@default\ltx@empty
+  \let\Fld@default\@empty
   \bgroup
     \Field@toks={ }%
     \kvsetkeys{Field}{#1}%
@@ -18488,7 +18488,7 @@
 }
 \def\@ChoiceMenu[#1]#2#3{% parameters, label, choices
   \def\Fld@name{#2}%
-  \let\Fld@default\ltx@empty
+  \let\Fld@default\@empty
   \let\Hy@reserved@a\relax
   \begingroup
     \expandafter\Fld@findlength#3\\%
@@ -18586,8 +18586,8 @@
   }%
 % \hbox to 0pt{\hskip-\maxdimen{\pdfrefxform \the\pdflastxform}}%
 }%
-\let\HyField@afields\ltx@empty
-\let\HyField@cofields\ltx@empty
+\let\HyField@afields\@empty
+\let\HyField@cofields\@empty
 \begingroup\expandafter\expandafter\expandafter\endgroup
 \expandafter\ifx\csname pdflastlink\endcsname\relax
   \let\HyField@AddToFields\relax
@@ -18599,8 +18599,8 @@
     but other PDF viewers might complain%
   }%
 \else
-  \let\HyField@AuxAddToFields\ltx@gobble
-  \let\HyField@AuxAddToCoFields\ltx@gobbletwo
+  \let\HyField@AuxAddToFields\@gobble
+  \let\HyField@AuxAddToCoFields\@gobbletwo
   \def\HyField@AfterAuxOpen{\Hy@AtBeginDocument}%
 %    \end{macrocode}
 %    Insertion sort for calculation field list.
@@ -18610,31 +18610,31 @@
   \def\HyField@ABD@AuxAddToCoFields#1#2{%
     \begingroup
       \Hy@safe@activestrue
-      \let\ltx@secondoftwo\relax
-      \ifx\HyField@cofields\ltx@empty
+      \let\@secondoftwo\relax
+      \ifx\HyField@cofields\@empty
         \xdef\HyField@cofields{%
-          \ltx@secondoftwo{#1}{ #2 0 R}%
+          \@secondoftwo{#1}{ #2 0 R}%
         }%
       \else
-        \let\ltx@secondoftwo\relax
+        \let\@secondoftwo\relax
         \def\HyField@AddCoField##1##2##3{%
-          \ifx##1\ltx@empty
-            \ltx@secondoftwo{#1}{ #2 0 R}%
-            \expandafter\ltx@gobble
+          \ifx##1\@empty
+            \@secondoftwo{#1}{ #2 0 R}%
+            \expandafter\@gobble
           \else
             \ifnum\pdfstrcmp{##2}{#1}>\ltx@zero
-              \ltx@secondoftwo{#1}{ #2 0 R}%
-              \ltx@secondoftwo{##2}{##3}%
-              \expandafter\expandafter\expandafter\ltx@gobble
+              \@secondoftwo{#1}{ #2 0 R}%
+              \@secondoftwo{##2}{##3}%
+              \expandafter\expandafter\expandafter\@gobble
             \else
-              \ltx@secondoftwo{##2}{##3}%
+              \@secondoftwo{##2}{##3}%
             \fi
           \fi
           \HyField@AddCoField
         }%
         \xdef\HyField@cofields{%
           \expandafter\HyField@AddCoField
-          \HyField@cofields\ltx@empty\ltx@empty\ltx@empty
+          \HyField@cofields\@empty\@empty\@empty
         }%
       \fi
     \endgroup
@@ -18665,7 +18665,7 @@
     \expandafter\HyField@@AddToFields\expandafter{%
       \the\pdflastlink
     }%
-    \ifx\Fld@calculate@code\ltx@empty
+    \ifx\Fld@calculate@code\@empty
     \else
       \begingroup
         \Hy@safe@activestrue
@@ -18708,7 +18708,7 @@
       \immediate\pdfobj{%
         <<%
           /Fields[\HyField@afields]%
-          \ifx\HyField@cofields\ltx@empty
+          \ifx\HyField@cofields\@empty
           \else
             /CO[\romannumeral-`\Q\HyField@cofields]%
           \fi
@@ -18751,14 +18751,14 @@
     \fbox{\textcolor{yellow}{\textsf{SubmitP}}}%
   }{SubmitP}%
 }
-\let\@endForm\ltx@empty
+\let\@endForm\@empty
 %    \end{macrocode}
 %    \begin{macrocode}
-\let\HyAnn@AbsPageLabel\ltx@empty
-\let\Fld@pageobjref\ltx@empty
+\let\HyAnn@AbsPageLabel\@empty
+\let\Fld@pageobjref\@empty
 \@ifundefined{pdfpageref}{%
 }{%
-  \ltx@ifpackageloaded{zref-abspage}{%
+  \@ifpackageloaded{zref-abspage}{%
     \newcount\HyAnn@Count
     \HyAnn@Count=\ltx@zero
     \def\HyAnn@AbsPageLabel{%
@@ -18784,7 +18784,7 @@
 %    \begin{macrocode}
 \def\@TextField[#1]#2{% parameters, label
   \def\Fld@name{#2}%
-  \let\Fld@default\ltx@empty
+  \let\Fld@default\@empty
   \let\Fld@value\@empty
   \def\Fld@width{\DefaultWidthofText}%
   \def\Fld@height{%
@@ -19134,7 +19134,7 @@
 %    \end{macro}
 %    \begin{macro}{\@endForm}
 %    \begin{macrocode}
-\let\@endForm\ltx@empty
+\let\@endForm\@empty
 %    \end{macrocode}
 %    \end{macro}
 %
@@ -19181,7 +19181,7 @@
 %    \begin{macrocode}
 \def\HyField@AddToFields#1{%
   \@pdfm@mark{put @afields @#1\HyField@TheAnnotCount}%
-  \ifx\Fld@calculate@code\ltx@empty
+  \ifx\Fld@calculate@code\@empty
   \else
     \@pdfm@mark{put @corder @#1\HyField@TheAnnotCount}%
   \fi
@@ -19193,7 +19193,7 @@
 %    \begin{macrocode}
 \def\@TextField[#1]#2{% parameters, label
   \def\Fld@name{#2}%
-  \let\Fld@default\ltx@empty
+  \let\Fld@default\@empty
   \let\Fld@value\@empty
   \def\Fld@width{\DefaultWidthofText}%
   \def\Fld@height{%
@@ -20182,9 +20182,9 @@
   \def\HyPsd@SanitizeOut@BraceLeft#1(#2\@nil{%
     #1%
     \ifx\\#2\\%
-      \expandafter\ltx@gobble
+      \expandafter\@gobble
     \else
-      \expandafter\ltx@firstofone
+      \expandafter\@firstofone
     \fi
     {%
       \string\173%
@@ -20194,9 +20194,9 @@
   \def\HyPsd@SanitizeOut@BraceRight#1)#2\@nil{%
     #1%
     \ifx\\#2\\%
-      \expandafter\ltx@gobble
+      \expandafter\@gobble
     \else
-      \expandafter\ltx@firstofone
+      \expandafter\@firstofone
     \fi
     {%
       \string\175%
