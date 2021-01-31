@@ -627,13 +627,13 @@
 %    \begin{macrocode}
 \def\Hy@VersionCheck#1{%
   \begingroup
-    \ltx@IfUndefined{ver@hyperref.sty}{%
+    \@ifundefined{ver@hyperref.sty}{%
       \Hy@Error{%
         This should not happen!\MessageBreak
         Missing hyperref version%
       }\@ehd
     }{%
-      \ltx@IfUndefined{ver@#1}{%
+      \@ifundefined{ver@#1}{%
         \Hy@Error{%
           This should not happen!\MessageBreak
           Missing version of `#1'%
@@ -682,7 +682,7 @@
 % \subsection{Checks with regular expressions}
 %
 %    \begin{macrocode}
-\ltx@IfUndefined{pdfmatch}{%
+\@ifundefined{pdfmatch}{%
   \def\Hy@Match#1#2#3#4#5{}%
 }{%
   \def\Hy@Match#1#2#3{%
@@ -1199,7 +1199,7 @@
     \let\P\textparagraph
     \let\ldots\textellipsis
     \let\dots\textellipsis
-    \ltx@IfUndefined{textEncodingNoboundary}%
+    \@ifundefined{textEncodingNoboundary}%
       {}{\let\noboundary\textEncodingNoboundary}%
 %    \end{macrocode}
 %
@@ -1338,7 +1338,7 @@
 %    \begin{macrocode}
     \let\foreignlanguage\@secondoftwo
     \let\textlatin\@firstofone
-    \ltx@IfUndefined{language@group}{}{%
+    \@ifundefined{language@group}{}{%
       \let\bbl@info\@gobble
       \csname HyPsd@babel@\language@group\endcsname
     }%
@@ -1473,7 +1473,7 @@
 %
 % \paragraph{Package xspace.}
 %    \begin{macrocode}
-    \ltx@IfUndefined{@xspace}{%
+    \@ifundefined{@xspace}{%
       \let\xspace\HyPsd@ITALCORR
     }{%
       \let\xspace\HyPsd@XSPACE
@@ -1776,7 +1776,7 @@
 %    the string gets an additional \cs{HyPsd@empty}.
 %    \begin{macrocode}
       \expandafter\HyPsd@Subst\expandafter{\/}\HyPsd@empty#1%
-      \ltx@IfUndefined{@xspace}{%
+      \@ifundefined{@xspace}{%
       }{%
         \let\HyPsd@xspace\relax
         \expandafter\HyPsd@Subst\expandafter
@@ -1868,7 +1868,7 @@
 %
 %    \begin{macrocode}
       \ifx\HyPsd@pdfencoding\HyPsd@pdfencoding@auto
-        \ltx@IfUndefined{StringEncodingConvertTest}{%
+        \@ifundefined{StringEncodingConvertTest}{%
         }{%
           \EdefUnescapeString\HyPsd@temp#1%
           \ifxetex
@@ -1935,9 +1935,9 @@
   }%
   \Hy@AtEndOfPackage{%
     \pdfstringdefDisableCommands{%
-      \ltx@IfUndefined{oldb}{}{\let\b\oldb}%
-      \ltx@IfUndefined{oldc}{}{\let\c\oldc}%
-      \ltx@IfUndefined{oldd}{}{\let\d\oldd}%
+      \@ifundefined{oldb}{}{\let\b\oldb}%
+      \@ifundefined{oldc}{}{\let\c\oldc}%
+      \@ifundefined{oldd}{}{\let\d\oldd}%
     }%
   }%
 }{%
@@ -2234,41 +2234,41 @@
 %    change 2020/07/21: removed patches for german, ngerman. Will be done by
 %    the language package. https://github.com/jspitz/babel-german/issues/4
 %    \begin{macrocode}
-\ltx@IfUndefined{danish@sh@"@sel}{}{%
+\@ifundefined{danish@sh@"@sel}{}{%
   \def\HyPsd@babel@danish{%
     \declare@shorthand{danish}{"|}{}%
     \declare@shorthand{danish}{"~}{-}%
   }%
 }
-\ltx@IfUndefined{dutch@sh@"@sel}{}{%
+\@ifundefined{dutch@sh@"@sel}{}{%
   \def\HyPsd@babel@dutch{%
     \declare@shorthand{dutch}{"|}{}%
     \declare@shorthand{dutch}{"~}{-}%
   }%
 }
-\ltx@IfUndefined{finnish@sh@"@sel}{}{%
+\@ifundefined{finnish@sh@"@sel}{}{%
   \def\HyPsd@babel@finnish{%
     \declare@shorthand{finnish}{"|}{}%
   }%
 }
-\ltx@IfUndefined{macedonian@sh@"@sel}{}{%
+\@ifundefined{macedonian@sh@"@sel}{}{%
   \def\HyPsd@babel@macedonian{%
     \declare@shorthand{macedonian}{"|}{}%
     \declare@shorthand{macedonian}{"~}{-}%
   }%
 }{}
-\ltx@IfUndefined{portuges@sh@"@sel}{}{%
+\@ifundefined{portuges@sh@"@sel}{}{%
   \def\HyPsd@babel@portuges{%
     \declare@shorthand{portuges}{"|}{}%
   }%
 }
-\ltx@IfUndefined{russian@sh@"@sel}{}{%
+\@ifundefined{russian@sh@"@sel}{}{%
   \def\HyPsd@babel@russian{%
     \declare@shorthand{russian}{"|}{}%
     \declare@shorthand{russian}{"~}{-}%
   }%
 }
-\ltx@IfUndefined{slovene@sh@"@sel}{}{%
+\@ifundefined{slovene@sh@"@sel}{}{%
   \def\HyPsd@babel@slovene{%
     \declare@shorthand{slovene}{"|}{}%
   }%
@@ -2276,7 +2276,7 @@
 %    \end{macrocode}
 %    Nested quoting environments are not supported (|<<|, |>>|).
 %    \begin{macrocode}
-\ltx@IfUndefined{spanish@sh@>@sel}{}{%
+\@ifundefined{spanish@sh@>@sel}{}{%
   \def\HyPsd@babel@spanish{%
     \declare@shorthand{spanish}{<<}{\guillemotleft}%
     \declare@shorthand{spanish}{>>}{\guillemotright}%
@@ -2286,19 +2286,19 @@
     \declare@shorthand{spanish}{"?}{\textquestiondown}%
   }%
 }
-\ltx@IfUndefined{swedish@sh@"@sel}{}{%
+\@ifundefined{swedish@sh@"@sel}{}{%
   \def\HyPsd@babel@swedish{%
     \declare@shorthand{swedish}{"|}{}%
     \declare@shorthand{swedish}{"~}{-}%
   }%
 }
-\ltx@IfUndefined{ukrainian@sh@"@sel}{}{%
+\@ifundefined{ukrainian@sh@"@sel}{}{%
   \def\HyPsd@babel@ukrainian{%
     \declare@shorthand{ukrainian}{"|}{}%
     \declare@shorthand{ukrainian}{"~}{-}%
   }%
 }
-\ltx@IfUndefined{usorbian@sh@"@sel}{}{%
+\@ifundefined{usorbian@sh@"@sel}{}{%
   \def\HyPsd@babel@usorbian{%
     \declare@shorthand{usorbian}{"f}{f}%
     \declare@shorthand{usorbian}{"|}{}%
@@ -2306,7 +2306,7 @@
 }
 %    \end{macrocode}
 %    \begin{macrocode}
-\ltx@IfUndefined{greek@sh@\string~@sel}{%
+\@ifundefined{greek@sh@\string~@sel}{%
   \let\HyPsd@GreekPatch\@empty
 }{%
   \def\HyPsd@GreekPatch{%
@@ -2447,7 +2447,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 \def\HyPsd@SpanishPatch{%
-  \ltx@IfUndefined{es@save@dot}{%
+  \@ifundefined{es@save@dot}{%
   }{%
     \let\.\es@save@dot
   }%
@@ -2457,7 +2457,7 @@
 %    therefore it is disabled and replaced by |-|.
 %    \begin{macrocode}
 \def\HyPsd@RussianPatch{%
-  \ltx@IfUndefined{russian@sh@"@-@}{%
+  \@ifundefined{russian@sh@"@-@}{%
   }{%
     \@namedef{russian@sh@"@-@}{-}%
   }%
@@ -3015,7 +3015,7 @@
 % \subsubsection{Fix for AMS classes}
 %
 %    \begin{macrocode}
-\ltx@IfUndefined{tocsection}{%
+\@ifundefined{tocsection}{%
   \let\HyPsd@AMSclassfix\relax
 }{%
   \def\HyPsd@AMSclassfix{%
@@ -3193,8 +3193,8 @@
 %    \begin{macro}{\HyPsd@@autorefname}
 %    \begin{macrocode}
 \def\HyPsd@@autorefname#1.#2\@nil{%
-  \ltx@IfUndefined{#1autorefname}{%
-    \ltx@IfUndefined{#1name}{%
+  \@ifundefined{#1autorefname}{%
+    \@ifundefined{#1name}{%
     }{%
       \csname#1name\endcsname\space
     }%
@@ -3529,7 +3529,7 @@
 %    comparison with \cs{ifcat}, see
 %    \url{http://tracker.luatex.org/view.php?id=773}.
 %    \begin{macrocode}
-\ltx@IfUndefined{directlua}{%
+\@ifundefined{directlua}{%
 }{%
   \expandafter\ifx\csname\endcsname\relax\fi
 }
@@ -4490,7 +4490,7 @@
 %    Added fix for version 2.1. Here \cmd{\sub@label} is defined.
 %    \begin{macrocode}
 \@ifpackageloaded{subfigure}{%
-  \ltx@IfUndefined{sub@label}{%
+  \@ifundefined{sub@label}{%
     \Hy@hypertexnamesfalse
   }{%
     \renewcommand*{\sub@label}[1]{%
@@ -4530,7 +4530,7 @@
 %    \verb|xr-hyper|. Therefore we test for the macro itself and not
 %    for the package name:
 %    \begin{macrocode}
-\ltx@IfUndefined{XR@addURL}{%
+\@ifundefined{XR@addURL}{%
 }{%
 %    \end{macrocode}
 % If reading external aux files check whether they have a non zero
@@ -6957,7 +6957,7 @@
   \@ifpackageloaded{tex4ht}{%
     \PassOptionsToPackage{tex4ht}{hyperref}%
   }{%
-    \ltx@IfUndefined{HCode}{%
+    \@ifundefined{HCode}{%
     }{%
       \begingroup
         \def\Hy@pkg{tex4ht}%
@@ -6996,9 +6996,9 @@
 %
 %    \begin{macrocode}
 \def\Hy@xspace@end{}
-\ltx@IfUndefined{xspaceaddexceptions}{%
+\@ifundefined{xspaceaddexceptions}{%
   \Hy@AtBeginDocument{%
-    \ltx@IfUndefined{xspaceaddexceptions}{%
+    \@ifundefined{xspaceaddexceptions}{%
     }{%
       \def\Hy@xspace@end{%
         \ltx@gobble{end for xspace}%
@@ -7110,9 +7110,9 @@
 %    in babel manner.
 %    \begin{macrocode}
 \Hy@nextfalse
-\ltx@IfUndefined{spanish@sh@"@sel}{}{\Hy@nexttrue}
-\ltx@IfUndefined{galician@sh@"@sel}{}{\Hy@nexttrue}
-\ltx@IfUndefined{estonian@sh@"@sel}{}{\Hy@nexttrue}
+\@ifundefined{spanish@sh@"@sel}{}{\Hy@nexttrue}
+\@ifundefined{galician@sh@"@sel}{}{\Hy@nexttrue}
+\@ifundefined{estonian@sh@"@sel}{}{\Hy@nexttrue}
 \ifHy@next
   \let\texttilde\~%
 \fi
@@ -7572,8 +7572,8 @@
     \@ifstar\@pagerefstar\T@pageref
   }%
 %  \@ifclassloaded{memoir}{%
-%    \ltx@IfUndefined{@mem@titlerefnolink}\ltx@secondoftwo{%
-%      \ltx@IfUndefined{@mem@titleref}\ltx@secondoftwo\ltx@firstoftwo
+%    \@ifundefined{@mem@titlerefnolink}\ltx@secondoftwo{%
+%      \@ifundefined{@mem@titleref}\ltx@secondoftwo\ltx@firstoftwo
 %    }%
 %  }\ltx@secondoftwo
 %  {%
@@ -7826,7 +7826,7 @@
 %    \begin{macrocode}
 \newif\ifHy@href@ismap
 \define@key{href}{ismap}[true]{%
-  \ltx@IfUndefined{Hy@href@ismap#1}{%
+  \@ifundefined{Hy@href@ismap#1}{%
     \Hy@Error{%
       Invalid value (#1) for key `ismap'.\MessageBreak
       Permitted values are `true' or `false'.\MessageBreak
@@ -8332,7 +8332,7 @@
 %    \begin{macro}{\Hy@DestRename}
 %    \begin{macrocode}
   \newcommand*{\Hy@DestRename}[2]{%
-    \ltx@IfUndefined{HyDL!#1}{%
+    \@ifundefined{HyDL!#1}{%
       \begingroup
         \Hy@safe@activestrue
         \edef\dest@name{#1}%
@@ -8371,7 +8371,7 @@
 %    \begin{macro}{\Hy@IsNotEmpty}
 %    \begin{macrocode}
   \def\Hy@IsNotEmpty#1{%
-    \ltx@IfUndefined{#1}\ltx@gobble{%
+    \@ifundefined{#1}\ltx@gobble{%
       \expandafter\ifx\csname#1\endcsname\ltx@empty
         \expandafter\ltx@gobble
       \else
@@ -9917,7 +9917,7 @@
 %
 %    \begin{macrocode}
 \def\Hy@UseMaketitleString#1{%
-  \ltx@IfUndefined{Hy@#1}{}{%
+  \@ifundefined{Hy@#1}{}{%
     \begingroup
       \let\Hy@saved@hook\pdfstringdefPreHook
       \pdfstringdefDisableCommands{%
@@ -10564,7 +10564,7 @@
 \Hy@CounterExists{part}{%
   \providecommand\theHpart{\arabic{part}}%
 }
-\ltx@IfUndefined{thechapter}{%
+\@ifundefined{thechapter}{%
   \providecommand\theHsection    {\arabic{section}}%
   \providecommand\theHfigure     {\arabic{figure}}%
   \providecommand\theHtable      {\arabic{table}}%
@@ -10714,14 +10714,14 @@
 %    \begin{macrocode}
 \def\HyCnt@LookForParentCounter#1#2{%
   \expandafter\let\expandafter\Hy@temp@A\csname cl@#2\endcsname
-  \ltx@IfUndefined{cl@#2}{%
+  \@ifundefined{cl@#2}{%
   }{%
     \ltx@onelevel@sanitize\Hy@temp@A
     \edef\Hy@temp@A{%
       \noexpand\in@{\Hy@temp}{\Hy@temp@A}%
     }\Hy@temp@A
     \ifin@
-      \ltx@IfUndefined{theH#2}{%
+      \@ifundefined{theH#2}{%
         \expandafter\ltx@LocalAppendToMacro\expandafter#1%
         \expandafter{%
           \expandafter\@arabic\csname c@#2\endcsname.%
@@ -10756,7 +10756,7 @@
 \fi
 \def\Hy@appendixstring{appendix}
 \def\Hy@chapapp{\Hy@chapterstring}
-\ltx@IfUndefined{appendix}{%
+\@ifundefined{appendix}{%
 }{%
   \let\HyOrg@appendix\appendix
   \def\Hy@AlphNoErr#1{%
@@ -10771,7 +10771,7 @@
     \fi
   }%
   \def\appendix{%
-    \ltx@IfUndefined{chapter}{%
+    \@ifundefined{chapter}{%
       \gdef\theHsection{\Hy@AlphNoErr{section}}%
     }{%
       \gdef\theHchapter{\Hy@AlphNoErr{chapter}}%
@@ -11227,7 +11227,7 @@
 % Then again, we have the \emph{subeqnarray}
 % package. Tanmoy provided some code for this:
 %    \begin{macrocode}
-\ltx@IfUndefined{subeqnarray}{}{%
+\@ifundefined{subeqnarray}{}{%
   \let\H@subeqnarray\subeqnarray
   \let\H@endsubeqnarray\endsubeqnarray
   \def\subeqnarray{%
@@ -11909,7 +11909,7 @@
 % not expanded immediately, we use \cs{@extra@b@citeb}, so cites in a
 % chapter will link to the bibliography in that chapter.
 %    \begin{macrocode}
-\ltx@IfUndefined{NAT@parse}{%
+\@ifundefined{NAT@parse}{%
   \providecommand*\@extra@binfo{}%
   \providecommand*\@extra@b@citeb{}%
   \def\bibcite#1#2{%
@@ -12271,7 +12271,7 @@
   \def\Hy@PageAnchorSlide{%
     \advance\c@page\ltx@one
     \ifnum\c@page>\ltx@one
-      \ltx@IfUndefined{theHpage}{%
+      \@ifundefined{theHpage}{%
         \protected@edef\Hy@TheSlideOptionalPage{%
           \Hy@SlidesFormatOptionalPage{\thepage}%
         }%
@@ -12731,7 +12731,7 @@
           \ifx\\#3\\%
             \ifx\Hy@temp@A\HyInd@ParenRight
               \HyInd@DefKey{#1}%
-              \ltx@IfUndefined{HyInd@(\HyInd@key)}{%
+              \@ifundefined{HyInd@(\HyInd@key)}{%
                 \let\Hy@temp\ltx@empty
               }{%
                 \expandafter\let\expandafter\Hy@temp
@@ -13242,8 +13242,8 @@
   \hyperref[{#1}]{\HyRef@autopagerefname\pageref*{#1}}%
 }
 \def\HyRef@autopagerefname{%
-  \ltx@IfUndefined{pageautorefname}{%
-    \ltx@IfUndefined{pagename}{%
+  \@ifundefined{pageautorefname}{%
+    \@ifundefined{pagename}{%
       \Hy@Warning{No autoref name for `page'}%
     }{%
       \pagename\nobreakspace
@@ -13292,11 +13292,11 @@
   \fi
 }
 \def\HyRef@testreftype#1.#2\\{%
-  \ltx@IfUndefined{#1autorefname}{%
-    \ltx@IfUndefined{#1name}{%
+  \@ifundefined{#1autorefname}{%
+    \@ifundefined{#1name}{%
       \HyRef@StripStar#1\\*\\\@nil{#1}%
-      \ltx@IfUndefined{\HyRef@name autorefname}{%
-        \ltx@IfUndefined{\HyRef@name name}{%
+      \@ifundefined{\HyRef@name autorefname}{%
+        \@ifundefined{\HyRef@name name}{%
           \def\HyRef@currentHtag{}%
           \Hy@Warning{No autoref name for `#1'}%
         }{%
@@ -13515,7 +13515,7 @@
   \fi
   \ifHy@setpdfversion
     \ifnum\Hy@pdf@majorminor@version<105 %
-      \ltx@IfUndefined{pdfobjcompresslevel}{%
+      \@ifundefined{pdfobjcompresslevel}{%
       }{%
         \ifHy@verbose
           \Hy@InfoNoLine{%
@@ -13546,7 +13546,7 @@
       \Hy@temp@A\pdflastxform{form XObject}%
       \Hy@temp@A\pdflastximage{image XObject}%
       \Hy@temp@A\pdflastannot{annotation}%
-      \ltx@IfUndefined{pdflastlink}{%
+      \@ifundefined{pdflastlink}{%
       }{%
          \Hy@temp@A\pdflastlink{link}%
       }%
@@ -13812,7 +13812,7 @@
 }
 \def\hyper@linkstart#1#2{%
   \Hy@VerboseLinkStart{#1}{#2}%
-  \ltx@IfUndefined{@#1bordercolor}{%
+  \@ifundefined{@#1bordercolor}{%
     \let\CurrentBorderColor\relax
   }{%
     \edef\CurrentBorderColor{\csname @#1bordercolor\endcsname}%
@@ -13822,7 +13822,7 @@
 \def\hyper@linkend{\close@pdflink}
 \def\hyper@link#1#2#3{%
   \Hy@VerboseLinkStart{#1}{#2}%
-  \ltx@IfUndefined{@#1bordercolor}{%
+  \@ifundefined{@#1bordercolor}{%
     \let\CurrentBorderColor\relax
   }{%
     \edef\CurrentBorderColor{\csname @#1bordercolor\endcsname}%
@@ -14244,7 +14244,7 @@
         \fi
       \fi
     }{%
-      \ltx@IfUndefined{stockwidth}{%
+      \@ifundefined{stockwidth}{%
         \ifdim\paperwidth>\z@
           \setlength{\pdfpagewidth}{\paperwidth}%
         \fi
@@ -15471,7 +15471,7 @@
   \else
     \ifHy@setpagesize
        \providecommand*{\VTeXInitMediaSize}{%
-         \ltx@IfUndefined{stockwidth}{%
+         \@ifundefined{stockwidth}{%
            \ifdim\paperheight>0pt %
              \setlength\mediaheight\paperheight
            \fi
@@ -15531,7 +15531,7 @@
   \Hy@VerboseLinkStart{#1}{#2}%
   \Hy@pstringdef\Hy@pstringURI{#2}%
   \expandafter\Hy@colorlink\csname @#1color\endcsname
-  \ltx@IfUndefined{@#1bordercolor}{%
+  \@ifundefined{@#1bordercolor}{%
     \let\CurrentBorderColor\relax
   }{%
     \edef\CurrentBorderColor{%
@@ -15634,7 +15634,7 @@
 }
 \def\hyper@link#1#2#3{%
   \Hy@VerboseLinkStart{#1}{#2}%
-  \ltx@IfUndefined{@#1bordercolor}{%
+  \@ifundefined{@#1bordercolor}{%
     \let\CurrentBorderColor\relax
   }{%
     \edef\CurrentBorderColor{\csname @#1bordercolor\endcsname}%
@@ -16219,7 +16219,7 @@
   \endgroup
   \Hy@RestoreLastskip
 }
-\ltx@IfUndefined{hyper@anchorstart}{}{\endinput}
+\@ifundefined{hyper@anchorstart}{}{\endinput}
 \Hy@WrapperDef\hyper@anchorstart#1{%
   \Hy@SaveLastskip
   \Hy@VerboseAnchor{#1}%
@@ -16262,7 +16262,7 @@
 }
 \def\hyper@linkend{%
   \literalps@out{\strip@pt@and@otherjunk\baselineskip\space H.L}%
-  \ltx@IfUndefined{@\hyper@currentlinktype bordercolor}{%
+  \@ifundefined{@\hyper@currentlinktype bordercolor}{%
     \let\Hy@tempcolor\relax
   }{%
     \edef\Hy@tempcolor{%
@@ -16377,7 +16377,7 @@
 \def\Hy@undefinedname{UNDEFINED}
 \def\hyper@link#1#2#3{%
   \Hy@VerboseLinkStart{#1}{#2}%
-  \ltx@IfUndefined{@#1bordercolor}{%
+  \@ifundefined{@#1bordercolor}{%
     \let\Hy@tempcolor\relax
   }{%
     \edef\Hy@tempcolor{\csname @#1bordercolor\endcsname}%
@@ -16573,7 +16573,7 @@
            \the\pdf@toks\space\pdf@type\space pdfmark%
          }%
        \else
-         \ltx@IfUndefined{@\pdf@linktype color}{%
+         \@ifundefined{@\pdf@linktype color}{%
            \Hy@colorlink\@linkcolor
          }{%
            \expandafter\Hy@colorlink
@@ -18756,7 +18756,7 @@
 %    \begin{macrocode}
 \let\HyAnn@AbsPageLabel\ltx@empty
 \let\Fld@pageobjref\ltx@empty
-\ltx@IfUndefined{pdfpageref}{%
+\@ifundefined{pdfpageref}{%
 }{%
   \ltx@ifpackageloaded{zref-abspage}{%
     \newcount\HyAnn@Count
@@ -20550,7 +20550,7 @@
 %    is not executed, so there will be no destination for \cmd{addcontentsline}.
 %    So \cmd{\@chapter} is overloaded to avoid this:
 %    \begin{macrocode}
-\ltx@IfUndefined{@chapter}{}{%
+\@ifundefined{@chapter}{}{%
   \let\Hy@org@chapter\@chapter
   \def\@chapter{%
     \def\Hy@next{%
@@ -20560,7 +20560,7 @@
       }%
     }%
     \ifnum\c@secnumdepth>\m@ne
-      \ltx@IfUndefined{if@mainmatter}%
+      \@ifundefined{if@mainmatter}%
       \iftrue{\csname if@mainmatter\endcsname}%
         \let\Hy@next\relax
       \fi
