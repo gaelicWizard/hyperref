@@ -300,7 +300,6 @@
 %    \begin{macrocode}
 \RequirePackage{kvoptions}[2011/06/30]
 \RequirePackage{kvsetkeys}[2009/07/30]
-\RequirePackage{ltxcmds}[2009/12/12]
 \SetupKeyvalOptions{%
   family=backref,%
   prefix=BR@,%
@@ -317,7 +316,7 @@
 %    default for the verbose switch.
 %    \begin{macrocode}
 \DeclareBoolOption[%
-  \ltx@ifundefined{ifHy@verbose}{%
+  \@ifundefined{ifHy@verbose}{%
     false%
   }{%
     \ifx\ifHy@verbose\iftrue true\else false\fi
