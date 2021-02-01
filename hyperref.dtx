@@ -113,6 +113,12 @@
 \EnableCrossrefs
 \CodelineIndex
 \setlength{\hfuzz}{2pt}
+\RequirePackage{etoolbox}
+\makeatletter
+\AfterBeginDocument{
+%\show\@preamblecmds
+\def\@preamblecmds{}
+}
 \begin{document}
   %
   % title
@@ -130,10 +136,10 @@
   % overview
   %
   \makeatletter
-  \@ifundefined{HyperrefOverview}{}{%
+  \ifdefined\HyperrefOverview%
     \HyperrefOverview\relax
     \newpage
-  }%
+  \fi%
   %
   % table of contents
   %
@@ -3874,12 +3880,12 @@
   \lccode`\|=`\\%
   \lccode`\(=`\{%
   \lccode`\)=`\}%
-  \lccode`0=\@ne
-  \lccode`1=\@ne
-  \lccode`3=\@ne
-  \lccode`4=\@ne
-  \lccode`5=\@ne
-  \lccode`7=\@ne
+  \lccode`0=\z@
+  \lccode`1=\z@
+  \lccode`3=\z@
+  \lccode`4=\z@
+  \lccode`5=\z@
+  \lccode`7=\z@
 \lowercase{\endgroup
   \def\HyPsd@EscapeTeX#1{%
     \HyPsd@Subst!{|045}#1%
